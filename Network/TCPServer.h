@@ -8,7 +8,6 @@
 #ifndef _TCP_SERVER_H
 #define _TCP_SERVER_H
 
-#include <Network/TCPSocket.h>
 #include <Network/TCPServerSocket.h>
 #include <Core/Thread.h>
 #include <Core/IListener.h>

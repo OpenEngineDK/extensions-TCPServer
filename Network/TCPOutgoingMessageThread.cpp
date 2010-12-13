@@ -1,4 +1,4 @@
-#include "TCPIncomingMessageThread.h"
+#include "TCPOutgoingMessageThread.h"
 
 #include <Logging/Logger.h>
 
@@ -20,7 +20,7 @@ namespace Network {
         if(arg.Sender == sock || arg.Sender == 0)
         {
             lock.Lock();
-            OutgoingMessages.push_back(arg);
+            OutgoingMessages.push_back(arg.Message);
             sem.Post();
             lock.Unlock();
         }

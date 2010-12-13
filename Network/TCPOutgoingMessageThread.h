@@ -35,7 +35,7 @@ namespace Network {
             TCPSocket *sock;
             Mutex lock;
             Semaphore sem;
-            std::vector<TCPString> OutgoingMessages;
+            std::vector<string> OutgoingMessages;
 
         public:
             TCPOutgoingMessageThread(TCPSocket *socket);
