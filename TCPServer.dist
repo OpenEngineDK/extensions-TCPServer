@@ -1,0 +1,9 @@
+# Distribution file for Sockets
+
+darcs /extensions/TCPServer                http://openengine.dk/code/extensions/TCPServer
+darcs-dev /extensions/TCPServer                fh.daimi.au.dk:/users/cgd/code/extensions/TCPServer
+
+#dist
+dist /extensions/Sockets/Sockets.dist                http://openengine.dk/code/extensions/Sockets/Sockets.dist
+dist /extensions/pThreadSemaphore/pThreadSemaphore.dist                http://openengine.dk/code/extensions/pThreadSemaphore/pThreadSemaphore.dist
+
