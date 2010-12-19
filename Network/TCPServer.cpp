@@ -8,8 +8,11 @@ namespace Network {
     TCPServer::TCPServer(int p)
     {
         sock = new TCPServerSocket(p);
+        sock->Listen();
         TCPIncomingMessage = new LockedQueuedEvent<TCPString>();
         TCPOutgoingMessage = new LockedQueuedEvent<TCPString>();
+        dealloc = new LockedQueuedEvent<TCPDeallocType*>();
+        dealloc->Attach(*this);
     }
 
     TCPServer::~TCPServer()
@@ -17,6 +20,7 @@ namespace Network {
         delete sock;
         delete TCPIncomingMessage;
         delete TCPOutgoingMessage;
+        delete dealloc;
     }
 
     void TCPServer::Run()
@@ -24,11 +28,10 @@ namespace Network {
         while(sock->IsOpen())
         {
             TCPSocket *socket = sock->Accept();
-            TCPIncomingMessageThread incoming(socket, TCPIncomingMessage);
-            TCPOutgoingMessageThread outgoing(socket);
-            incoming.Start();
-            outgoing.Start();
-            threads.push_back(make_pair(incoming, outgoing));
+            TCPIncomingMessageThread *incoming = new TCPIncomingMessageThread(socket, TCPIncomingMessage, dealloc);
+            //TCPOutgoingMessageThread *outgoing = new TCPOutgoingMessageThread(socket, dealloc);
+            incoming->Start();
+            //outgoing->Start();
         }
     }
 

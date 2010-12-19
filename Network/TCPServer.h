@@ -8,6 +8,7 @@
 #ifndef _TCP_SERVER_H
 #define _TCP_SERVER_H
 
+#include <Network/TCPSocket.h>
 #include <Network/TCPServerSocket.h>
 #include <Core/Thread.h>
 #include <Core/IListener.h>
@@ -18,6 +19,7 @@
 #include "TCPOutgoingMessageThread.h"
 
 #include "TCPString.h"
+#include "TCPDeallocType.h"
 
 #include <vector>
 
@@ -28,14 +30,18 @@ namespace Network {
 
     using namespace std;
 
-    class TCPServer : public Thread
+    typedef pair<TCPIncomingMessageThread*, TCPOutgoingMessageThread*> threadPair;
+
+    class TCPServer : public Thread,
+                      public IListener<TCPDeallocType*>
     {
         private:
             TCPServerSocket *sock;
 
-            vector<pair<TCPIncomingMessageThread, TCPOutgoingMessageThread> > threads;
             LockedQueuedEvent<TCPString> *TCPIncomingMessage;
             LockedQueuedEvent<TCPString> *TCPOutgoingMessage;
+
+            LockedQueuedEvent<TCPDeallocType*> *dealloc;
 
         public:
             TCPServer(int port);
@@ -44,8 +50,20 @@ namespace Network {
             void Stop();
             void Run();
 
-            IEvent<TCPString>& IncomingMessageEvent(){return *TCPIncomingMessage;}
-            IEvent<TCPString>& OutgoingMessageEvent(){return *TCPOutgoingMessage;}
+            void Handle(TCPDeallocType* arg)
+            {
+                //Make a vector<pair<threads> > and dealloc both threads
+                delete arg;
+            }
+
+            IEvent<TCPString>& IncomingMessageEvent()
+            {
+                return *TCPIncomingMessage;
+            }
+            IEvent<TCPString>& OutgoingMessageEvent()
+            {
+                return *TCPOutgoingMessage;
+            }
     };
 } // NS Network
 } // NS OpenEngine

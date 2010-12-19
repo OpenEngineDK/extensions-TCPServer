@@ -16,6 +16,7 @@
 #include <Core/LockedQueuedEvent.h>
 
 #include "TCPString.h"
+#include "TCPDeallocType.h"
 
 #include <vector>
 
@@ -28,7 +29,8 @@ namespace Network {
 
     class TCPOutgoingMessageThread 
         : public Thread,
-          public IListener<TCPString>
+          public IListener<TCPString>,
+          public TCPDeallocType
     {
         private:
             TCPSocket *sock;
@@ -38,7 +40,7 @@ namespace Network {
             std::vector<string> OutgoingMessages;
 
         public:
-            TCPOutgoingMessageThread(TCPSocket *socket);
+            TCPOutgoingMessageThread(TCPSocket *socket, IEvent<TCPDeallocType*> *initdealloc);
             ~TCPOutgoingMessageThread();
 
             void Handle(TCPString arg);

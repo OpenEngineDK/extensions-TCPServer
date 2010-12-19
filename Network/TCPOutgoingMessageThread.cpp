@@ -5,9 +5,10 @@
 namespace OpenEngine {
 namespace Network {
 
-    TCPOutgoingMessageThread::TCPOutgoingMessageThread(TCPSocket *socket)
+    TCPOutgoingMessageThread::TCPOutgoingMessageThread(TCPSocket *socket, IEvent<TCPDeallocType*> *initdealloc)
     {
         sock = socket;
+        dealloc = initdealloc;
     }
 
     TCPOutgoingMessageThread::~TCPOutgoingMessageThread()
@@ -38,9 +39,11 @@ namespace Network {
             lock.Unlock();
             sem.Unlock();
         }
+        dealloc->Notify(this);
     }
 
     void TCPOutgoingMessageThread::Stop()
     {
+        sock->Close();
     }
 }}

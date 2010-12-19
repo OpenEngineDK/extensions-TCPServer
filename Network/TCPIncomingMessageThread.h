@@ -16,6 +16,7 @@
 #include <Core/LockedQueuedEvent.h>
 
 #include "TCPString.h"
+#include "TCPDeallocType.h"
 
 using namespace OpenEngine::Core;
 
@@ -24,14 +25,16 @@ namespace Network {
 
     using namespace std;
 
-    class TCPIncomingMessageThread : public Thread
+    class TCPIncomingMessageThread : public Thread,
+                                     public TCPDeallocType
     {
         private:
             TCPSocket *sock;
-            LockedQueuedEvent<TCPString> *TCPMessage;
+            IEvent<TCPDeallocType*> *dealloc;
+            IEvent<TCPString> *TCPMessage;
 
         public:
-            TCPIncomingMessageThread(TCPSocket *socket, LockedQueuedEvent<TCPString> *MessageQueue);
+            TCPIncomingMessageThread(TCPSocket *socket, IEvent<TCPString> *MessageQueue, IEvent<TCPDeallocType*> *initdealloc);
             ~TCPIncomingMessageThread();
 
             void Stop();
