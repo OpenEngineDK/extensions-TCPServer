@@ -1,5 +1,5 @@
-#ifndef _TCP_STRING
-#define _TCP_STRING
+#ifndef _TCP_STRING_H
+#define _TCP_STRING_H
 
 #include <string>
 #include <Network/TCPSocket.h>
@@ -15,4 +15,4 @@ namespace Network {
 
 }}
 
-#endif //_TCP_STRING
+#endif //_TCP_STRING_H
