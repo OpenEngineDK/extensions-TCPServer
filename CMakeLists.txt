@@ -10,3 +10,8 @@ ADD_LIBRARY(${EXTENSION_NAME}
     Network/TCPOutgoingMessageThread.h
     Network/TCPOutgoingMessageThread.cpp
 )
+
+TARGET_LINK_LIBRARIES(${EXTENSION_NAME}
+    Extensions_Sockets
+)
+
