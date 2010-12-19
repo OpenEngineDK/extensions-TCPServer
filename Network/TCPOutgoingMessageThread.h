@@ -14,7 +14,6 @@
 #include <Core/IListener.h>
 #include <Core/EngineEvents.h>
 #include <Core/LockedQueuedEvent.h>
-#include <Core/Semaphore.h>
 
 #include "TCPString.h"
 
@@ -34,7 +33,8 @@ namespace Network {
         private:
             TCPSocket *sock;
             Mutex lock;
-            Semaphore sem;
+            Mutex sem;
+            IEvent<TCPDeallocType*> *dealloc;
             std::vector<string> OutgoingMessages;
 
         public:

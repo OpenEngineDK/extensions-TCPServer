@@ -21,7 +21,7 @@ namespace Network {
         {
             lock.Lock();
             OutgoingMessages.push_back(arg.Message);
-            sem.Post();
+            sem.Unlock();
             lock.Unlock();
         }
     }
@@ -30,11 +30,13 @@ namespace Network {
     {
         while(sock->IsOpen())
         {
-            sem.Wait();
+            sem.Lock();
+                sem.Lock();
             lock.Lock();
             sock->SendLine(OutgoingMessages.front());
             OutgoingMessages.erase(OutgoingMessages.begin());
             lock.Unlock();
+            sem.Unlock();
         }
     }
 

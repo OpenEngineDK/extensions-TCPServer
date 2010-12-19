@@ -5,5 +5,4 @@ darcs-dev /extensions/TCPServer                fh.daimi.au.dk:/users/cgd/code/ex
 
 #dist
 dist /extensions/Sockets/Sockets.dist                http://openengine.dk/code/extensions/Sockets/Sockets.dist
-dist /extensions/pThreadSemaphore/pThreadSemaphore.dist                http://openengine.dk/code/extensions/pThreadSemaphore/pThreadSemaphore.dist
 
