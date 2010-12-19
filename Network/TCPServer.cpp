@@ -21,9 +21,7 @@ namespace Network {
 
     void TCPServer::Run()
     {
-        sock->Listen();
-        run=true;
-        while (run && sock->IsOpen())
+        while(sock->IsOpen())
         {
             TCPSocket *socket = sock->Accept();
             TCPIncomingMessageThread incoming(socket, TCPIncomingMessage);
@@ -37,6 +35,5 @@ namespace Network {
     void TCPServer::Stop()
     {
         sock->Close();
-        run = false;
     }
 }}

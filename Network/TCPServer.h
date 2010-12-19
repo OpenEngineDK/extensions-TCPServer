@@ -32,7 +32,6 @@ namespace Network {
     {
         private:
             TCPServerSocket *sock;
-            volatile bool run;
 
             vector<pair<TCPIncomingMessageThread, TCPOutgoingMessageThread> > threads;
             LockedQueuedEvent<TCPString> *TCPIncomingMessage;
