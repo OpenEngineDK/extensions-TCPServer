@@ -13,5 +13,6 @@ ADD_LIBRARY(${EXTENSION_NAME}
 
 TARGET_LINK_LIBRARIES(${EXTENSION_NAME}
     Extensions_Sockets
+    Extensions_BagContainer
 )
 

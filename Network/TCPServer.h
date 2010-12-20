@@ -14,6 +14,7 @@
 #include <Core/IListener.h>
 #include <Core/EngineEvents.h>
 #include <Core/LockedQueuedEvent.h>
+#include <Utils/Bag.h>
 
 #include "TCPIncomingMessageThread.h"
 #include "TCPOutgoingMessageThread.h"
@@ -30,12 +31,13 @@ namespace Network {
 
     using namespace std;
 
-    typedef pair<TCPIncomingMessageThread*, TCPOutgoingMessageThread*> threadPair;
-
     class TCPServer : public Thread,
                       public IListener<TCPDeallocType*>
     {
         private:
+            typedef pair<TCPIncomingMessageThread*, TCPOutgoingMessageThread*> threadPair;
+            OpenEngine::Utils::Bag<threadPair> threads;
+
             TCPServerSocket *sock;
 
             LockedQueuedEvent<TCPString> *TCPIncomingMessage;
@@ -50,11 +52,7 @@ namespace Network {
             void Stop();
             void Run();
 
-            void Handle(TCPDeallocType* arg)
-            {
-                //Make a vector<pair<threads> > and dealloc both threads
-                delete arg;
-            }
+            void Handle(TCPDeallocType* arg);
 
             IEvent<TCPString>& IncomingMessageEvent()
             {

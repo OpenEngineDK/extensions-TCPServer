@@ -5,4 +5,5 @@ darcs-dev /extensions/TCPServer                fh.daimi.au.dk:/users/cgd/code/ex
 
 #dist
 dist /extensions/Sockets/Sockets.dist                http://openengine.dk/code/extensions/Sockets/Sockets.dist
+dist /extensions/BagContainer/BagContainer.dist http://openengine.dk/code/extensions/BagContainer/BagContainer.dist
 

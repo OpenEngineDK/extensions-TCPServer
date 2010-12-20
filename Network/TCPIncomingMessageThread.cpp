@@ -14,6 +14,7 @@ namespace Network {
 
     TCPIncomingMessageThread::~TCPIncomingMessageThread()
     {
+        Stop();
         delete sock;
     }
 
@@ -24,7 +25,9 @@ namespace Network {
             TCPString string;
             string.Message = sock->ReadLine();
             string.Sender = sock;
-            logger.info << "SERVER GOT:\t" << string.Message << logger.end;
+            if(string.Message == "")
+                break;
+            logger.info << "LOOP 3" << logger.end;
             //TCPMessage->Notify(string);
         }
         dealloc->Notify(this);
