@@ -58,6 +58,7 @@ namespace Network {
             {
                 return *TCPIncomingMessage;
             }
+
             IEvent<TCPString>& OutgoingMessageEvent()
             {
                 return *TCPOutgoingMessage;

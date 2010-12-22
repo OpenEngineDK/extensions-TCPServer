@@ -26,20 +26,17 @@ namespace Network {
     void TCPServer::Handle(TCPDeallocType* arg)
     {
         logger.info << "DEALLOC CALLED!" << logger.end;
-        delete arg;
-        /*
         for(unsigned int x=0; x<threads.size(); x++)
         {
             if(threads[x].first == arg || threads[x].second == arg)
             {
                 logger.info << "DELETE HAPPEND!" << logger.end;
                 delete threads[x].first;
-                //delete threads[x].second;
+                delete threads[x].second;
                 threads.erase(threads.begin() + x);
                 x--;
             }
         }
-        */
     }
 
     void TCPServer::Run()
@@ -48,10 +45,11 @@ namespace Network {
         {
             TCPSocket *socket = sock->Accept();
             TCPIncomingMessageThread *incoming = new TCPIncomingMessageThread(socket, TCPIncomingMessage, dealloc);
-            TCPOutgoingMessageThread *outgoing;// = new TCPOutgoingMessageThread(socket, dealloc);
+            TCPOutgoingMessageThread *outgoing = new TCPOutgoingMessageThread(socket, dealloc);
             incoming->Start();
-            //outgoing->Start();
+            outgoing->Start();
             threads.push_back(make_pair(incoming, outgoing));
+            dealloc->Release();
         }
     }
 

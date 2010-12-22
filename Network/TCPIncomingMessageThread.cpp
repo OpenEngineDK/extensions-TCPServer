@@ -27,7 +27,6 @@ namespace Network {
             string.Sender = sock;
             if(string.Message == "")
                 break;
-            logger.info << "LOOP 3" << logger.end;
             //TCPMessage->Notify(string);
         }
         dealloc->Notify(this);

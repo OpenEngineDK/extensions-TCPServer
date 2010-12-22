@@ -13,8 +13,6 @@ namespace Network {
 
     TCPOutgoingMessageThread::~TCPOutgoingMessageThread()
     {
-        Stop();
-        delete sock;
     }
 
     void TCPOutgoingMessageThread::Handle(TCPString arg)
