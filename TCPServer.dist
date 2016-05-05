@@ -1,9 +1,9 @@
 # Distribution file for Sockets
 
-darcs /extensions/TCPServer                http://openengine.dk/code/extensions/TCPServer
-darcs-dev /extensions/TCPServer                fh.daimi.au.dk:/users/cgd/code/extensions/TCPServer
+git /extensions/TCPServer                https://github.com/OpenEngineDK/extensions-TCPServer.git
+git-dev /extensions/TCPServer                git@github.com:OpenEngineDK/extensions-TCPServer.git
 
 #dist
-dist /extensions/Sockets/Sockets.dist                http://openengine.dk/code/extensions/Sockets/Sockets.dist
-dist /extensions/BagContainer/BagContainer.dist http://openengine.dk/code/extensions/BagContainer/BagContainer.dist
+dist /extensions/Sockets/Sockets.dist                https://raw.githubusercontent.com/OpenEngineDK/extensions-Sockets/master/Sockets.dist
+dist /extensions/BagContainer/BagContainer.dist https://raw.githubusercontent.com/OpenEngineDK/extensions-BagContainer/master/BagContainer.dist
 
